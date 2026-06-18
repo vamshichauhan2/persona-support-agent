@@ -1,15 +1,9 @@
-import os
-import json
-
-from dotenv import load_dotenv
 from google import genai
-
-load_dotenv()
+from src.config import GEMINI_API_KEY
 
 client = genai.Client(
-api_key=os.getenv("GEMINI_API_KEY")
+    api_key=GEMINI_API_KEY
 )
-
 def classify_persona(user_message: str):
 
 
