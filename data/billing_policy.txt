@@ -1,0 +1,5 @@
+Billing inquiries require verification by a human support representative.
+
+Refund approvals depend on account review.
+
+Duplicate charges must be investigated manually.
