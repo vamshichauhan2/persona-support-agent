@@ -1,5 +1,9 @@
+import json
 from google import genai
 from src.config import GEMINI_API_KEY
+
+if not GEMINI_API_KEY:
+    raise Exception("GEMINI_API_KEY not found")
 
 client = genai.Client(
     api_key=GEMINI_API_KEY
@@ -83,7 +87,7 @@ def classify_persona(user_message: str):
             }
 
     prompt = f"""
-    ```
+    
 
     You are a customer persona classification engine.
 
@@ -108,10 +112,15 @@ def classify_persona(user_message: str):
     """
 
     
-    response = client.models.generate_content(
-        model="gemini-2.0-flash",
-        contents=prompt
-    )
+    
+    try:
+        response = client.models.generate_content(
+            model="gemini-2.0-flash",
+            contents=prompt
+        )
+    except Exception as e:
+        print("Gemini Error:", e)
+        raise
 
     output = response.text.strip()
 
@@ -123,7 +132,7 @@ def classify_persona(user_message: str):
     return json.loads(output)
    
 
-    if name == "main":
+    if __name__ == "__main__":
 
       test_message = (
         "How does this issue impact operations and when will it be resolved?"

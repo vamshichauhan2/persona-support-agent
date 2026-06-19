@@ -1,6 +1,9 @@
 from google import genai
 from src.config import GEMINI_API_KEY
 
+if not GEMINI_API_KEY:
+    raise Exception("GEMINI_API_KEY not found")
+
 client = genai.Client(
     api_key=GEMINI_API_KEY
 )
@@ -65,9 +68,14 @@ User Question:
 {query}
 """
 
-    response = client.models.generate_content(
-        model="gemini-2.0-flash",
-        contents=prompt
-    )
+    
+    try:
+        response = client.models.generate_content(
+            model="gemini-2.0-flash",
+            contents=prompt
+        )
+    except Exception as e:
+        print("Gemini Error:", e)
+        raise
 
     return response.text
