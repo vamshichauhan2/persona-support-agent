@@ -7,8 +7,13 @@ from src.escalator import should_escalate, generate_handoff
 
 st.title("Persona Adaptive Customer Support Agent")
 
-rag = LocalRAGPipeline()
-rag.ingest_documents()
+@st.cache_resource
+def load_rag():
+    rag = LocalRAGPipeline()
+    rag.ingest_documents()
+    return rag
+
+rag = load_rag()
 
 query = st.text_input(
     "Ask a support question"

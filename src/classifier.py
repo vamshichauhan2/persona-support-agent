@@ -129,7 +129,14 @@ def classify_persona(user_message: str):
         output = output.replace("```", "")
         output = output.strip()
 
-    return json.loads(output)
+    try:
+        return json.loads(output)
+    except:
+        return {
+            "persona": "Frustrated User",
+            "confidence": 0.70,
+            "reasoning": "Fallback parsing"
+        }
    
 
     if __name__ == "__main__":

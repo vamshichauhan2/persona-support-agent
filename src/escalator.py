@@ -75,7 +75,4 @@ def generate_handoff(
         "Human review required"
     }
 
-    return json.dumps(
-        handoff,
-        indent=4
-    )
+    return handoff
