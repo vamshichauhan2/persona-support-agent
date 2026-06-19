@@ -1,3 +1,4 @@
+import torch
 import os
 
 from dotenv import load_dotenv
@@ -14,8 +15,10 @@ class LocalRAGPipeline:
     def __init__(self):
 
         self.embedding_model = SentenceTransformer(
-            "all-MiniLM-L6-v2"
+            "all-MiniLM-L6-v2",
+            device="cpu"
         )
+        
 
         self.chroma_client = chromadb.PersistentClient(
             path="./chroma_db"
